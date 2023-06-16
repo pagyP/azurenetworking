@@ -12,6 +12,12 @@ resource "azurerm_firewall_policy" "parent_firewall_policy" {
   resource_group_name = azurerm_resource_group.firewall_policy.name
   location            = azurerm_resource_group.firewall_policy.location
   sku                 = var.firewall_sku
+  dynamic "intrusion_detection" {
+    for_each = var.firewall_sku == "Premium"  ? ["Intrusion"] : []
+    content {
+  mode = "Alert"
+  }
+  }
   # intrusion_detection {
   #   mode = "Alert"
   # }
@@ -98,6 +104,12 @@ resource "azurerm_firewall_policy" "child_firewall_policy" {
   location            = azurerm_resource_group.firewall_policy.location
   base_policy_id      = azurerm_firewall_policy.parent_firewall_policy.id
   sku                 = var.firewall_sku
+  dynamic "intrusion_detection" {
+    for_each = var.firewall_sku == "Premium"  ? ["Intrusion"] : []
+    content {
+  mode = "Alert"
+  }
+  }
   # intrusion_detection {
   #   mode = "Alert"
   # }
