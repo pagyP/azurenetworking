@@ -12,9 +12,9 @@ resource "azurerm_firewall_policy" "parent_firewall_policy" {
   resource_group_name = azurerm_resource_group.firewall_policy.name
   location            = azurerm_resource_group.firewall_policy.location
   sku                 = var.firewall_sku
-  intrusion_detection {
-    mode = "Alert"
-  }
+  # intrusion_detection {
+  #   mode = "Alert"
+  # }
 
   tags = local.common_tags
 }
@@ -98,9 +98,9 @@ resource "azurerm_firewall_policy" "child_firewall_policy" {
   location            = azurerm_resource_group.firewall_policy.location
   base_policy_id      = azurerm_firewall_policy.parent_firewall_policy.id
   sku                 = var.firewall_sku
-  intrusion_detection {
-    mode = "Alert"
-  }
+  # intrusion_detection {
+  #   mode = "Alert"
+  # }
 
   tags = local.common_tags
 }
@@ -109,10 +109,10 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
   for_each           = var.spoke_vnets_ip_groups
   name               = "${each.value["name"]}-child_firewall_policy_rule"
   firewall_policy_id = azurerm_firewall_policy.child_firewall_policy[each.key].id
-  priority           = 500
+  priority           = 400
   network_rule_collection {
     name     = "${each.value["location"]}-child_network_rule_collection"
-    priority = 100
+    priority = 200
     action   = "Allow"
     # SPOKE TO SECURED HUB
     rule {
@@ -145,7 +145,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
   }
   nat_rule_collection {
     name     = "${each.value["location"]}-child_nat_rule_collection"
-    priority = 300
+    priority = 100
     action   = "Dnat"
     rule {
       name                = "DNAT-to-${each.value["name"]}-vm"
