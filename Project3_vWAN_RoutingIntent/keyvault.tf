@@ -5,6 +5,8 @@ resource "random_id" "kvname" {
   prefix = "vault"
 }
 
+
+
 resource "azurerm_key_vault" "kv" {
   name                            = random_id.kvname.hex
   location                        = azurerm_resource_group.vm.location
@@ -20,6 +22,8 @@ resource "azurerm_key_vault" "kv" {
 
   tags = local.common_tags
 
+  
+
 }
 
 
@@ -29,10 +33,24 @@ resource "azurerm_key_vault_secret" "secret" {
   name         = "vmsecret1"
   value        = random_password.vmsecret.result
   key_vault_id = azurerm_key_vault.kv.id
+  depends_on = [ time_sleep.wait_60_seconds,
+    azurerm_role_assignment.role
+     ]
 
 }
 
 resource "random_password" "vmsecret" {
   length  = 32
   special = true
+}
+
+resource "time_sleep" "wait_60_seconds" {
+  
+  create_duration = "60s"
+}
+resource "azurerm_role_assignment" "role" {
+  scope                = azurerm_key_vault.kv.id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
+  
 }

@@ -1,6 +1,6 @@
 core_location = "eastasia"
 projectname   = "routingintent"
-firewall_sku  = "Premium"
+firewall_sku  = "Standard"
 vhub_ip_groups = {
   "NCU-HUB" = {
     name     = "NCU-HUB"

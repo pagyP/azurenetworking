@@ -42,6 +42,7 @@ resource "azurerm_virtual_machine" "vm" {
   depends_on = [
     azurerm_network_interface.vm,
     azurerm_network_security_group.nsg,
+    #azurerm_role_assignment.kv
   ]
 }
 
