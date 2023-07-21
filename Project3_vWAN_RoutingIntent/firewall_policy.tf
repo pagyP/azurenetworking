@@ -27,7 +27,7 @@ resource "azurerm_firewall_policy" "parent_firewall_policy" {
     # azurerm_firewall_policy.parent_firewall_policy,
     # azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     # azurerm_firewall_policy.child_firewall_policy,
-    azurerm_firewall.securehub,
+    #azurerm_firewall.securehub,
     azurerm_ip_group.myips,
     azurerm_ip_group.spoke_vnets,
     azurerm_ip_group.vhub
@@ -84,24 +84,24 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
     # }
   }
 
-  network_rule_collection {
-    name     = "network_rule_collection1"
-    priority = 400
-    action   = "Allow"
-    rule {
-      name      = "HUB-to-HUB"
-      protocols = ["Any"]
-      source_ip_groups = [
-        azurerm_ip_group.vhub["NCU-HUB"].id,
-        azurerm_ip_group.vhub["WCU-HUB"].id
-      ]
-      destination_ip_groups = [
-        azurerm_ip_group.vhub["NCU-HUB"].id,
-        azurerm_ip_group.vhub["WCU-HUB"].id
-      ]
-      destination_ports = ["*"]
-    }
-  }
+  # network_rule_collection {
+  #   name     = "network_rule_collection1"
+  #   priority = 400
+  #   action   = "Allow"
+  #   rule {
+  #     name      = "HUB-to-HUB"
+  #     protocols = ["Any"]
+  #     source_ip_groups = [
+  #       azurerm_ip_group.vhub["NCU-HUB"].id,
+  #       azurerm_ip_group.vhub["WCU-HUB"].id
+  #     ]
+  #     destination_ip_groups = [
+  #       azurerm_ip_group.vhub["NCU-HUB"].id,
+  #       azurerm_ip_group.vhub["WCU-HUB"].id
+  #     ]
+  #     destination_ports = ["*"]
+  #   }
+  # }
 
   depends_on = [
     azurerm_firewall_policy.parent_firewall_policy,
@@ -133,7 +133,7 @@ resource "azurerm_firewall_policy" "child_firewall_policy" {
   depends_on = [
     azurerm_firewall_policy.parent_firewall_policy,
     azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
-    azurerm_firewall.securehub,
+    #azurerm_firewall.securehub,
     azurerm_ip_group.myips,
     azurerm_ip_group.spoke_vnets,
     azurerm_ip_group.vhub
@@ -167,13 +167,25 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
     # }
     # SPOKE TO OTHER HUB SPOKES
     rule {
-      name      = "CrossHUB-Spoke-Communication"
+      name      = "Spoke-Spoke-Communication"
       protocols = ["Any"]
       source_ip_groups = [
         azurerm_ip_group.spoke_vnets[each.key].id
       ]
       destination_ip_groups = [
         for key, value in azurerm_ip_group.spoke_vnets : value.id if key != each.key
+      ]
+      destination_ports = ["*"]
+    }
+    rule {
+      name      = "Spoke-Spoke-Communication-1"
+      protocols = ["Any"]
+      source_ip_groups = [
+        
+        for key, value in azurerm_ip_group.spoke_vnets : value.id if key != each.key
+      ]
+      destination_ip_groups = [
+        azurerm_ip_group.spoke_vnets[each.key].id
       ]
       destination_ports = ["*"]
     }
@@ -196,7 +208,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
     azurerm_firewall_policy.parent_firewall_policy,
     azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     azurerm_firewall_policy.child_firewall_policy,
-    azurerm_firewall.securehub,
+    #azurerm_firewall.securehub,
     azurerm_ip_group.myips,
     azurerm_ip_group.spoke_vnets,
     azurerm_ip_group.vhub

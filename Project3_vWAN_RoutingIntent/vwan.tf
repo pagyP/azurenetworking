@@ -124,7 +124,7 @@ resource "azurerm_firewall" "securehub" {
     virtual_hub_id  = azurerm_virtual_hub.vhub[each.key].id
     public_ip_count = 1
   }
-  #firewall_policy_id = azurerm_firewall_policy.child_firewall_policy[each.key].id
+  firewall_policy_id = azurerm_firewall_policy.child_firewall_policy[each.key].id
 
   tags = local.common_tags
 
