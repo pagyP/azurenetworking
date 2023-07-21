@@ -1,41 +1,41 @@
-core_location = "eastasia"
+core_location = "westeurope"
 projectname   = "routingintent"
 firewall_sku  = "Standard"
 vhub_ip_groups = {
-  "NCU-HUB" = {
-    name     = "NCU-HUB"
+  "WEU-HUB" = {
+    name     = "WEU-HUB"
     cidrs    = ["172.16.2.0/23"]
-    location = "northcentralus"
+    location = "westeurope"
     # avoid adding more CIDR for HUB as it can only have 1 CIDR
   }
-  "WCU-HUB" = {
-    name     = "WCU-HUB"
+  "NEU-HUB" = {
+    name     = "NEU-HUB"
     cidrs    = ["172.16.0.0/23"]
-    location = "westcentralus"
+    location = "northeurope"
     # avoid adding more CIDR for HUB as it can only have 1 CIDR
   }
 }
 
 spoke_vnets_ip_groups = {
-  "NCU-HUB" = {
-    name     = "NCU-SPOKE-1"
-    cidrs    = ["172.16.8.0/24"]
-    location = "northcentralus"
+  "WEU-HUB" = {
+    name     = "WEU-SPOKE-1"
+    cidrs    = ["192.168.180.0/24"]
+    location = "westeurope"
   }
-  "WCU-HUB" = {
-    name     = "WCU-SPOKE-1"
-    cidrs    = ["172.16.4.0/24"]
-    location = "westcentralus"
+  "NEU-HUB" = {
+    name     = "NEU-SPOKE-1"
+    cidrs    = ["192.168.200.0/24"]
+    location = "northeurope"
   }
 }
 
 spoke_subnets = {
-  "NCU-HUB" = {
-    name  = "NCU-SPOKE-1-Subnet-1"
-    cidrs = ["172.16.8.0/24"]
+  "WEU-HUB" = {
+    name  = "WEU-SPOKE-1-Subnet-1"
+    cidrs = ["192.168.180.0/27"]
   }
-  "WCU-HUB" = {
-    name  = "WCU-SPOKE-1-Subnet-1"
-    cidrs = ["172.16.4.0/25"]
+  "NEU-HUB" = {
+    name  = "NEU-SPOKE-1-Subnet-1"
+    cidrs = ["192.168.200.0/27"]
   }
 }

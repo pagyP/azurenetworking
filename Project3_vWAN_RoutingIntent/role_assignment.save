@@ -1,8 +1,0 @@
-resource "azurerm_role_assignment" "kv" {
-  scope                = azurerm_key_vault.kv.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = data.azurerm_client_config.current.object_id
-  depends_on = [ azurerm_key_vault.kv,
-  azurerm_key_vault_secret.secret
-   ]
-}

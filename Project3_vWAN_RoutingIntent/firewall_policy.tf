@@ -54,8 +54,8 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
         port = 443
       }
       source_ip_groups = [
-        azurerm_ip_group.spoke_vnets["NCU-HUB"].id,
-        azurerm_ip_group.spoke_vnets["WCU-HUB"].id
+        azurerm_ip_group.spoke_vnets["WEU-HUB"].id,
+        azurerm_ip_group.spoke_vnets["NEU-HUB"].id
       ]
       destination_fqdns = [
         "*.microsoft.com",
@@ -72,8 +72,8 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
     #     port = 53
     #   }
     #   source_ip_groups = [
-    #     azurerm_ip_group.spoke_vnets["NCU-HUB"].id,
-    #     azurerm_ip_group.spoke_vnets["WCU-HUB"].id
+    #     azurerm_ip_group.spoke_vnets["WEU-HUB"].id,
+    #     azurerm_ip_group.spoke_vnets["NEU-HUB"].id
     #   ]
     #   destination_fqdns = [
     #     "*.microsoft.com",
@@ -92,12 +92,12 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
   #     name      = "HUB-to-HUB"
   #     protocols = ["Any"]
   #     source_ip_groups = [
-  #       azurerm_ip_group.vhub["NCU-HUB"].id,
-  #       azurerm_ip_group.vhub["WCU-HUB"].id
+  #       azurerm_ip_group.vhub["WEU-HUB"].id,
+  #       azurerm_ip_group.vhub["NEU-HUB"].id
   #     ]
   #     destination_ip_groups = [
-  #       azurerm_ip_group.vhub["NCU-HUB"].id,
-  #       azurerm_ip_group.vhub["WCU-HUB"].id
+  #       azurerm_ip_group.vhub["WEU-HUB"].id,
+  #       azurerm_ip_group.vhub["NEU-HUB"].id
   #     ]
   #     destination_ports = ["*"]
   #   }
