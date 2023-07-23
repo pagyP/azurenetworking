@@ -5,14 +5,14 @@ resource "azurerm_resource_group" "ipgroups" {
   tags = local.common_tags
 }
 
-resource "azurerm_ip_group" "vhub" {
-  for_each            = var.vhub_ip_groups
-  name                = each.value["name"]
-  resource_group_name = azurerm_resource_group.ipgroups.name
-  location            = azurerm_resource_group.ipgroups.location
-  cidrs               = each.value["cidrs"]
+# resource "azurerm_ip_group" "vhub" {
+#   for_each            = var.vhub_ip_groups
+#   name                = each.value["name"]
+#   resource_group_name = azurerm_resource_group.ipgroups.name
+#   location            = azurerm_resource_group.ipgroups.location
+#   cidrs               = each.value["cidrs"]
 
-}
+# }
 
 resource "azurerm_ip_group" "spoke_vnets" {
   for_each            = var.spoke_vnets_ip_groups

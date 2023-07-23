@@ -1,5 +1,5 @@
 core_location = "westeurope"
-projectname   = "routingintent"
+projectname   = "vwan"
 firewall_sku  = "Standard"
 vhub_ip_groups = {
   "WEU-HUB" = {

@@ -34,11 +34,12 @@ resource "azurerm_virtual_hub" "vhub" {
   # address_prefix      = tolist(azurerm_ip_group.vhub_ip_groups[each.key].cidrs)[0] --Working (another method)
   virtual_wan_id = azurerm_virtual_wan.wan.id
   sku            = "Standard"
+  #hub_routing_preference = "ASPath"
 
   tags = local.common_tags
   depends_on = [
     azurerm_virtual_wan.wan,
-    azurerm_ip_group.vhub
+    #azurerm_ip_group.vhub
   ]
 }
 
@@ -122,8 +123,6 @@ resource "azurerm_firewall" "securehub" {
   location            = each.value["location"]
   sku_name            = "AZFW_Hub"
   sku_tier            = var.firewall_sku
-  #to be added later
-  #hub_routing_preference = "ASPath"
   virtual_hub {
     virtual_hub_id  = azurerm_virtual_hub.vhub[each.key].id
     public_ip_count = 1
@@ -134,6 +133,7 @@ resource "azurerm_firewall" "securehub" {
 
   depends_on = [
     azurerm_virtual_hub.vhub,
+    # 22-07-23 try adding the parent policy dependency back in
     #azurerm_firewall_policy.child_firewall_policy,
     #azurerm_firewall_policy.parent_firewall_policy,
   ]
