@@ -28,8 +28,8 @@ resource "azurerm_firewall_policy" "parent_firewall_policy" {
     # azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     # azurerm_firewall_policy.child_firewall_policy,
     #azurerm_firewall.securehub,
-    azurerm_ip_group.myips,
-    azurerm_ip_group.spoke_vnets,
+    #azurerm_ip_group.myips,
+    #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
   ]
 }
@@ -104,9 +104,9 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
   # }
 
   depends_on = [
-    azurerm_firewall_policy.parent_firewall_policy,
-    azurerm_ip_group.myips,
-    azurerm_ip_group.spoke_vnets,
+    #azurerm_firewall_policy.parent_firewall_policy,
+    #azurerm_ip_group.myips,
+    #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
   ]
 }
@@ -134,8 +134,8 @@ resource "azurerm_firewall_policy" "child_firewall_policy" {
     azurerm_firewall_policy.parent_firewall_policy,
     #azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     #azurerm_firewall.securehub,
-    azurerm_ip_group.myips,
-    azurerm_ip_group.spoke_vnets,
+    #azurerm_ip_group.myips,
+    #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
   ]
 }
@@ -209,8 +209,8 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
     #azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     #azurerm_firewall_policy.child_firewall_policy,
     #azurerm_firewall.securehub,
-    azurerm_ip_group.myips,
-    azurerm_ip_group.spoke_vnets,
+    #azurerm_ip_group.myips,
+    #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
   ]
 
