@@ -11,7 +11,7 @@
 #     //resource_group_name = azurerm_resource_group.corenetworking.name
 #     vpn_gateway_id = azurerm_vpn_gateway.vpn.id
 #     remote_vpn_site_id = azurerm_vpn_site.vpn.id
-    
+
 #     vpn_link {
 #       vpn_site_link_id = azurerm_vpn_site.vpn.link[0].id
 #       shared_key = "P@ssw0rd1234"

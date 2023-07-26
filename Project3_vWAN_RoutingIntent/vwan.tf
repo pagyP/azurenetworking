@@ -29,11 +29,11 @@ resource "azurerm_virtual_hub" "vhub" {
   location            = each.value["location"]
   resource_group_name = azurerm_resource_group.corenetworking.name
   #address_prefix      = tolist(azurerm_ip_group.vhub[each.value["name"]].cidrs)[0]
-  address_prefix      = tolist(var.vhub_ip_groups[each.key].cidrs)[0] 
+  address_prefix = tolist(var.vhub_ip_groups[each.key].cidrs)[0]
   #address_prefix      = tolist(var.vhub_ip_groups[each.value]["name"].cidrs)[0] 
   # address_prefix      = tolist(azurerm_ip_group.vhub_ip_groups[each.key].cidrs)[0] --Working (another method)
-  virtual_wan_id = azurerm_virtual_wan.wan.id
-  sku            = "Standard"
+  virtual_wan_id         = azurerm_virtual_wan.wan.id
+  sku                    = "Standard"
   hub_routing_preference = "ASPath"
 
   tags = local.common_tags

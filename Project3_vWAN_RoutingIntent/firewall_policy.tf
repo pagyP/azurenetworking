@@ -111,7 +111,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
   ]
 }
 resource "time_sleep" "wait_180_seconds" {
-  
+
   create_duration = "300s"
 }
 # Child Policy
@@ -185,7 +185,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
       name      = "Spoke-Spoke-Communication-1"
       protocols = ["Any"]
       source_ip_groups = [
-        
+
         for key, value in azurerm_ip_group.spoke_vnets : value.id if key != each.key
       ]
       destination_ip_groups = [
