@@ -110,7 +110,10 @@ resource "azurerm_firewall_policy_rule_collection_group" "parent_firewall_policy
     #azurerm_ip_group.vhub
   ]
 }
-
+resource "time_sleep" "wait_180_seconds" {
+  
+  create_duration = "300s"
+}
 # Child Policy
 resource "azurerm_firewall_policy" "child_firewall_policy" {
   for_each            = var.spoke_vnets_ip_groups
@@ -131,12 +134,13 @@ resource "azurerm_firewall_policy" "child_firewall_policy" {
 
   tags = local.common_tags
   depends_on = [
-    azurerm_firewall_policy.parent_firewall_policy,
+    #azurerm_firewall_policy.parent_firewall_policy,
     #azurerm_firewall_policy_rule_collection_group.parent_firewall_policy_rule,
     #azurerm_firewall.securehub,
     #azurerm_ip_group.myips,
     #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
+    time_sleep.wait_180_seconds
   ]
 }
 
@@ -212,6 +216,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "child_firewall_policy_
     #azurerm_ip_group.myips,
     #azurerm_ip_group.spoke_vnets,
     #azurerm_ip_group.vhub
+    time_sleep.wait_180_seconds
   ]
 
 }

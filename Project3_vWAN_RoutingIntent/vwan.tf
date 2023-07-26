@@ -95,9 +95,9 @@ resource "azurerm_virtual_hub_connection" "spoke_to_vhub" {
   # }
 
   depends_on = [
-    #azurerm_virtual_hub.vhub,
-    #azurerm_virtual_network.spoke_vnets,
-    #azurerm_firewall.securehub
+    azurerm_virtual_hub.vhub,
+    azurerm_virtual_network.spoke_vnets,
+    azurerm_firewall.securehub
     # azurerm_virtual_hub_route_table_route.fwroute # Enable it if using only Firewall Manager (not routing intent)
   ]
 }
